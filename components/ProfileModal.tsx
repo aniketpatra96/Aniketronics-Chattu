@@ -3,14 +3,14 @@ import profileService, { ResponseProps } from "@/services/profile.service";
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import {
-    Alert,
-    Image,
-    Modal,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  Modal,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface Props {
@@ -27,6 +27,9 @@ export default function ProfileImageModal({
   initialImage,
 }: Props) {
   const [image, setImage] = useState<string | null>(initialImage ?? null);
+  const [destroyImage, setDestroyImage] = useState<string | null>(
+    initialImage ?? null
+  );
   const {
     updateUser,
   }: { updateUser: (username?: string, profileUrl?: string) => Promise<void> } =
@@ -67,6 +70,7 @@ export default function ProfileImageModal({
           imageDataUrl
         );
         if (response.success) {
+          setDestroyImage(image);
           setImage(response.data.imageURl);
         } else {
           const message: string =
@@ -85,6 +89,9 @@ export default function ProfileImageModal({
     if (image) {
       onSave(image);
       updateUser(undefined, image);
+      if (destroyImage) {
+        profileService.destroyImage(destroyImage);
+      }
     }
     onClose();
   };
