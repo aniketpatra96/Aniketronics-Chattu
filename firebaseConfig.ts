@@ -1,15 +1,15 @@
-// Import the functions you need from the SDKs you need
 import AsyncStorage, {
-    AsyncStorageStatic,
+  AsyncStorageStatic,
 } from "@react-native-async-storage/async-storage";
 import { FirebaseApp, initializeApp } from "firebase/app";
+// @ts-ignore
 import { Auth, getReactNativePersistence, initializeAuth } from "firebase/auth";
 import {
-    collection,
-    CollectionReference,
-    DocumentData,
-    Firestore,
-    getFirestore,
+  collection,
+  CollectionReference,
+  DocumentData,
+  Firestore,
+  getFirestore,
 } from "firebase/firestore";
 
 interface ConfigProps {
@@ -23,13 +23,13 @@ interface ConfigProps {
 }
 
 const firebaseConfig: ConfigProps = {
-  apiKey: "AIzaSyBZF_lO6J7m7ikN5MrffckZ2p_lYjz8LsY",
+  apiKey: String(process.env.EXPO_PUBLIC_FIREBASE_API_KEY),
   authDomain: "aniketronics-chat.firebaseapp.com",
   projectId: "aniketronics-chat",
   storageBucket: "aniketronics-chat.firebasestorage.app",
-  messagingSenderId: "500907154983",
-  appId: "1:500907154983:web:2a4e9f8b7a3ff0ed6f7802",
-  measurementId: "G-NTJXLTS177",
+  messagingSenderId: String(process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID),
+  appId: String(process.env.EXPO_PUBLIC_APP_ID),
+  measurementId: String(process.env.EXPO_PUBLIC_MEASUREMENT_ID),
 };
 
 // Initialize Firebase
